@@ -14,7 +14,7 @@
  */
 
 // API endpoint where your Flask application is hosted
-const FLASK_API_URL = "http://127.0.0.1:5000/predict";
+const FLASK_API_URL = "https://college-placement-prediction-m49q.onrender.com/predict";
 
 // DOM Elements
 const placementForm = document.getElementById("placementForm");
@@ -373,8 +373,7 @@ placementForm.addEventListener("submit", async (event) => {
       displayError("Something went wrong while generating the prediction. Please try again.");
     } else {
       // Fetch failed due to network / CORS / server offline
-      displayError("Unable to connect to the prediction server. Please start the Flask backend.");
-    }
+      displayError("Unable to connect to the prediction server. Please try again in a minute.");
 
   } finally {
     // 7. Reset button loading state
