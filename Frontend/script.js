@@ -360,6 +360,7 @@ placementForm.addEventListener("submit", async (event) => {
     // Check if backend returned an error message inside JSON
     if (result.error) {
       displayError("Something went wrong while generating the prediction. Please try again.");
+    
     } else {
       // 6. Display real ML model output
       displayPredictionResult(result);
@@ -374,7 +375,7 @@ placementForm.addEventListener("submit", async (event) => {
     } else {
       // Fetch failed due to network / CORS / server offline
       displayError("Unable to connect to the prediction server. Please try again in a minute.");
-
+    }
   } finally {
     // 7. Reset button loading state
     setLoadingState(false);
