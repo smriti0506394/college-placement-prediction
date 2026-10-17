@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Placement Predictor | Academic Machine Learning</title>
+  <!-- Google Fonts for clean academic & professional typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==================================================
+       TOP NAVIGATION BAR
+       ================================================== -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <span class="brand-icon">🎓</span>
+        <span class="brand-name">College Placement Predictor</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link" id="aboutNavLink">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================================================
+       HERO SECTION
+       ================================================== -->
+  <section class="hero-section" id="home">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Logistic Regression ML Model &bull; 22 Trained Features</span>
+        </div>
+        <h1 class="hero-title">Find Your Placement Probability</h1>
+        <p class="hero-subtitle">
+          Enter your academic, technical and extracurricular details to get an estimate of your placement chances using our machine learning model.
+        </p>
+      </div>
+      
+      <!-- Academic / Technology Vector Illustration -->
+      <div class="hero-illustration">
+        <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-svg">
+          <!-- Background glow circles -->
+          <circle cx="160" cy="110" r="95" fill="url(#heroGlow)" opacity="0.35"/>
+          <circle cx="240" cy="70" r="45" fill="#c7d2fe" opacity="0.45"/>
+          
+          <!-- Graduation Cap -->
+          <path d="M160 55L75 95L160 135L245 95L160 55Z" fill="url(#capGrad)" stroke="#4338ca" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M110 112V145C110 162 132 175 160 175C188 175 210 162 210 145V112" fill="url(#capBody)" stroke="#3730a3" stroke-width="2"/>
+          <path d="M230 102V155" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="230" cy="160" r="5" fill="#f59e0b"/>
+          
+          <!-- Data Dashboard Card -->
+          <rect x="35" y="125" width="105" height="70" rx="10" fill="#ffffff" stroke="#e0e7ff" stroke-width="2" filter="drop-shadow(0px 8px 16px rgba(99,102,241,0.12))"/>
+          <rect x="47" y="138" width="40" height="6" rx="3" fill="#6366f1"/>
+          <!-- Chart bars -->
+          <rect x="47" y="170" width="10" height="15" rx="2" fill="#c7d2fe"/>
+          <rect x="63" y="158" width="10" height="27" rx="2" fill="#818cf8"/>
+          <rect x="79" y="163" width="10" height="22" rx="2" fill="#a5b4fc"/>
+          <rect x="95" y="150" width="10" height="35" rx="2" fill="#4f46e5"/>
+          <polyline points="52,168 68,155 84,160 100,146" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Tech / AI Badge Card -->
+          <rect x="185" y="125" width="105" height="70" rx="10" fill="#ffffff" stroke="#e0e7ff" stroke-width="2" filter="drop-shadow(0px 8px 16px rgba(99,102,241,0.12))"/>
+          <circle cx="205" cy="148" r="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+          <path d="M202 148L204 150L208 146" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="220" y="145" width="55" height="6" rx="3" fill="#10b981"/>
+          <rect x="200" y="165" width="75" height="5" rx="2.5" fill="#e2e8f0"/>
+          <rect x="200" y="175" width="50" height="5" rx="2.5" fill="#f1f5f9"/>
+
+          <!-- Floating nodes / machine learning dots -->
+          <circle cx="65" cy="65" r="4" fill="#6366f1"/>
+          <circle cx="265" cy="115" r="5" fill="#8b5cf6"/>
+          <circle cx="280" cy="60" r="3" fill="#3b82f6"/>
+          <line x1="65" y1="65" x2="105" y2="85" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <line x1="245" y1="95" x2="265" y2="115" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+          <defs>
+            <radialGradient id="heroGlow" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+              <stop offset="0%" stop-color="#818cf8"/>
+              <stop offset="100%" stop-color="#e0e7ff" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="capGrad" x1="75" y1="55" x2="245" y2="135" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#4f46e5"/>
+              <stop offset="100%" stop-color="#312e81"/>
+            </linearGradient>
+            <linearGradient id="capBody" x1="110" y1="112" x2="210" y2="175" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#4338ca"/>
+              <stop offset="100%" stop-color="#1e1b4b"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       MAIN CONTENT: TWO-COLUMN LAYOUT
+       ================================================== -->
+  <main class="main-container">
+    <div class="content-grid">
+
+      <!-- ==================================================
+           LEFT COLUMN: STUDENT DETAILS FORM
+           ================================================== -->
+      <section class="card form-card" aria-labelledby="formHeading">
+        <div class="card-header">
+          <div class="card-header-text">
+            <h2 id="formHeading" class="card-title">Student Details</h2>
+            <p class="card-subtitle">Fill in all 22 attributes corresponding to the ML model training features.</p>
+          </div>
+          <!-- Quick prefill helper for testing and demonstration -->
+          <button type="button" id="fillSampleBtn" class="btn-secondary-sm" title="Populate inputs with valid sample data">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            <span>Fill Sample Data</span>
+          </button>
+        </div>
+
+        <form id="placementForm" novalidate>
+
+          <!-- --------------------------------------------------
+               SECTION 1 — BASIC INFORMATION
+               -------------------------------------------------- -->
+          <div class="form-section">
+            <div class="section-title-wrap">
+              <span class="section-index">1</span>
+              <h3 class="section-title">Basic Information</h3>
+            </div>
+            
+            <div class="form-grid grid-3-col">
+              <!-- Feature 1: Age -->
+              <div class="form-group">
+                <label for="age" class="form-label">
+                  Age <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  class="form-control"
+                  placeholder="e.g. 21"
+                  min="16"
+                  max="100"
+                  required
+                >
+                <small class="field-hint">Student age (e.g. 21)</small>
+              </div>
+
+              <!-- Feature 2: Gender -->
+              <div class="form-group">
+                <label for="gender" class="form-label">
+                  Gender <span class="required">*</span>
+                </label>
+                <select id="gender" name="gender" class="form-control form-select" required>
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="Female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Other">Other</option>
+                </select>
+                <small class="field-hint">Gender identity</small>
+              </div>
+
+              <!-- Feature 3: State -->
+              <div class="form-group">
+                <label for="state" class="form-label">
+                  State <span class="required">*</span>
+                </label>
+                <select id="state" name="state" class="form-control form-select" required>
+                  <option value="" disabled selected>Select State</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Other">Other</option>
+                </select>
+                <small class="field-hint">Home/College state</small>
+              </div>
+
+              <!-- Feature 4: Branch -->
+              <select id="branch" name="branch" class="form-control form-select" required>
+                  <option value="" disabled selected>Select Branch</option>
+
+                  <option value="AIML">AIML</option>
+                  <option value="CSE">CSE</option>
+                  <option value="Chemical">Chemical</option>
+                  <option value="Civil">Civil</option>
+                  <option value="ECE">ECE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="IT">IT</option>
+                  <option value="Mechanical">Mechanical</option>
+              </select>
+
+              <!-- Feature 5: College Tier -->
+              <div class="form-group">
+                <label for="college_tier" class="form-label">
+                  College Tier <span class="required">*</span>
+                </label>
+                <select id="college_tier" name="college_tier" class="form-control form-select" required>
+                  <option value="" disabled selected>Select Tier</option>
+                  <option value="Tier-1">Tier-1</option>
+                  <option value="Tier-2">Tier-2</option>
+                  <option value="Tier-3">Tier-3</option>
+                </select>
+                <small class="field-hint">College categorization</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------------------------------
+               SECTION 2 — ACADEMIC PERFORMANCE
+               -------------------------------------------------- -->
+          <div class="form-section">
+            <div class="section-title-wrap">
+              <span class="section-index">2</span>
+              <h3 class="section-title">Academic Performance</h3>
+            </div>
+
+            <div class="form-grid grid-3-col">
+              <!-- Feature 6: CGPA -->
+              <div class="form-group">
+                <label for="cgpa" class="form-label">
+                  CGPA <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="cgpa"
+                  name="cgpa"
+                  class="form-control"
+                  placeholder="e.g. 8.2"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  required
+                >
+                <small class="field-hint">Scale of 0.00 to 10.00</small>
+              </div>
+
+              <!-- Feature 7: Attendance Percentage -->
+              <div class="form-group">
+                <label for="attendance_percentage" class="form-label">
+                  Attendance Percentage <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="attendance_percentage"
+                  name="attendance_percentage"
+                  class="form-control"
+                  placeholder="e.g. 85"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  required
+                >
+                <small class="field-hint">Range 0 to 100%</small>
+              </div>
+
+              <!-- Feature 19: Study Hours Per Week -->
+              <div class="form-group">
+                <label for="study_hours_per_week" class="form-label">
+                  Study Hours Per Week <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="study_hours_per_week"
+                  name="study_hours_per_week"
+                  class="form-control"
+                  placeholder="e.g. 20"
+                  min="0"
+                  max="168"
+                  required
+                >
+                <small class="field-hint">Weekly self-study hours</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------------------------------
+               SECTION 3 — TECHNICAL SKILLS
+               -------------------------------------------------- -->
+          <div class="form-section">
+            <div class="section-title-wrap">
+              <span class="section-index">3</span>
+              <h3 class="section-title">Technical Skills</h3>
+            </div>
+
+            <div class="form-grid grid-3-col">
+              <!-- Feature 8: DSA Problems Solved -->
+              <div class="form-group">
+                <label for="dsa_problems_solved" class="form-label">
+                  DSA Problems Solved <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="dsa_problems_solved"
+                  name="dsa_problems_solved"
+                  class="form-control"
+                  placeholder="e.g. 250"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">LeetCode/GFG/HackerRank</small>
+              </div>
+
+              <!-- Feature 9: Aptitude Score -->
+              <div class="form-group">
+                <label for="aptitude_score" class="form-label">
+                  Aptitude Score <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="aptitude_score"
+                  name="aptitude_score"
+                  class="form-control"
+                  placeholder="e.g. 75"
+                  min="0"
+                  max="100"
+                  required
+                >
+                <small class="field-hint">Range 0 to 100</small>
+              </div>
+
+              <!-- Feature 18: Competitive Programming Rating -->
+              <div class="form-group">
+                <label for="competitive_programming_rating" class="form-label">
+                  Competitive Programming Rating <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="competitive_programming_rating"
+                  name="competitive_programming_rating"
+                  class="form-control"
+                  placeholder="e.g. 900"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">Codeforces/CodeChef rating</small>
+              </div>
+
+              <!-- Feature 11: Projects Count -->
+              <div class="form-group">
+                <label for="projects_count" class="form-label">
+                  Projects Count <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="projects_count"
+                  name="projects_count"
+                  class="form-control"
+                  placeholder="e.g. 3"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">Completed software projects</small>
+              </div>
+
+              <!-- Feature 12: Internships Count -->
+              <div class="form-group">
+                <label for="internships_count" class="form-label">
+                  Internships Count <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="internships_count"
+                  name="internships_count"
+                  class="form-control"
+                  placeholder="e.g. 1"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">Industrial internships done</small>
+              </div>
+
+              <!-- Feature 13: Certifications Count -->
+              <div class="form-group">
+                <label for="certifications_count" class="form-label">
+                  Certifications Count <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="certifications_count"
+                  name="certifications_count"
+                  class="form-control"
+                  placeholder="e.g. 4"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">Technical certificates</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------------------------------
+               SECTION 4 — PROFESSIONAL / ONLINE ACTIVITY
+               -------------------------------------------------- -->
+          <div class="form-section">
+            <div class="section-title-wrap">
+              <span class="section-index">4</span>
+              <h3 class="section-title">Professional / Online Activity</h3>
+            </div>
+
+            <div class="form-grid grid-3-col">
+              <!-- Feature 14: Open Source Contributions -->
+              <div class="form-group">
+                <label for="open_source_contributions" class="form-label">
+                  Open Source Contributions <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="open_source_contributions"
+                  name="open_source_contributions"
+                  class="form-control"
+                  placeholder="e.g. 20"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">PRs / public repository commits</small>
+              </div>
+
+              <!-- Feature 15: GitHub Contributions -->
+              <div class="form-group">
+                <label for="github_contributions" class="form-label">
+                  GitHub Contributions <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="github_contributions"
+                  name="github_contributions"
+                  class="form-control"
+                  placeholder="e.g. 50"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">Yearly commit history</small>
+              </div>
+
+              <!-- Feature 16: LinkedIn Activity Score -->
+              <div class="form-group">
+                <label for="linkedin_activity_score" class="form-label">
+                  LinkedIn Activity Score <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="linkedin_activity_score"
+                  name="linkedin_activity_score"
+                  class="form-control"
+                  placeholder="e.g. 70"
+                  min="0"
+                  max="100"
+                  required
+                >
+                <small class="field-hint">Range 0 to 100</small>
+              </div>
+
+              <!-- Feature 17: Hackathons Participated -->
+              <div class="form-group">
+                <label for="hackathons_participated" class="form-label">
+                  Hackathons Participated <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="hackathons_participated"
+                  name="hackathons_participated"
+                  class="form-control"
+                  placeholder="e.g. 2"
+                  min="0"
+                  required
+                >
+                <small class="field-hint">Total hackathon entries</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------------------------------
+               SECTION 5 — SOFT SKILLS
+               -------------------------------------------------- -->
+          <div class="form-section">
+            <div class="section-title-wrap">
+              <span class="section-index">5</span>
+              <h3 class="section-title">Soft Skills</h3>
+            </div>
+
+            <div class="form-grid grid-3-col">
+              <!-- Feature 10: Communication Score -->
+              <div class="form-group">
+                <label for="communication_score" class="form-label">
+                  Communication Score <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="communication_score"
+                  name="communication_score"
+                  class="form-control"
+                  placeholder="e.g. 80"
+                  min="0"
+                  max="100"
+                  required
+                >
+                <small class="field-hint">Range 0 to 100</small>
+              </div>
+
+              <!-- Feature 20: Soft Skills Score -->
+              <div class="form-group">
+                <label for="soft_skills_score" class="form-label">
+                  Soft Skills Score <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="soft_skills_score"
+                  name="soft_skills_score"
+                  class="form-control"
+                  placeholder="e.g. 80"
+                  min="0"
+                  max="100"
+                  required
+                >
+                <small class="field-hint">Range 0 to 100</small>
+              </div>
+
+              <!-- Feature 21: Leadership Experience -->
+              <div class="form-group">
+                <label for="leadership_experience" class="form-label">
+                  Leadership Experience <span class="required">*</span>
+                </label>
+                <select id="leadership_experience" name="leadership_experience" class="form-control form-select" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <small class="field-hint">Club lead / Class rep</small>
+              </div>
+
+              <!-- Feature 22: Extracurricular Activities -->
+              <div class="form-group">
+                <label for="extracurricular_activities" class="form-label">
+                  Extracurricular Activities <span class="required">*</span>
+                </label>
+                <select id="extracurricular_activities" name="extracurricular_activities" class="form-control form-select" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="" disabled selected>Select count</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>             
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <small class="field-hint">Sports, arts, volunteer</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================================================
+               PREDICT BUTTON & ACTION AREA
+               ================================================== -->
+          <div class="form-action-area">
+            <button type="submit" id="predictBtn" class="btn-predict">
+              <!-- Regular state icon & label -->
+              <span class="btn-content btn-state-ready">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span>Predict Placement</span>
+              </span>
+
+              <!-- Loading state icon & label -->
+              <span class="btn-content btn-state-loading" style="display: none;">
+                <span class="spinner"></span>
+                <span>Analyzing your profile...</span>
+              </span>
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- ==================================================
+           RIGHT COLUMN: PREDICTION RESULT CARD
+           ================================================== -->
+      <aside class="card result-card" aria-live="polite">
+        
+        <!-- INITIAL STATE: Before Form Submission -->
+        <div id="initialResultView" class="result-view-panel">
+          <div class="result-header">
+            <h2 class="card-title">Prediction Result</h2>
+          </div>
+
+          <div class="empty-state">
+            <!-- Attractive Target / Chart / Academic SVG Icon -->
+            <div class="empty-icon-wrapper">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="28" fill="#eef2ff" stroke="#c7d2fe" stroke-width="2"/>
+                <circle cx="32" cy="32" r="20" stroke="#818cf8" stroke-width="2" stroke-dasharray="3 3"/>
+                <circle cx="32" cy="32" r="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+                <circle cx="32" cy="32" r="5" fill="#4f46e5"/>
+                <!-- Crosshairs -->
+                <path d="M32 6V14M32 50V58M6 32H14M50 32H58" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            
+            <h3 class="empty-title">Your result will appear here</h3>
+            <p class="empty-desc">
+              Fill in the form and click <strong>&ldquo;Predict Placement&rdquo;</strong> to see your results.
+            </p>
+          </div>
+
+          <!-- "What You'll Get" Section -->
+          <div class="info-section">
+            <h4 class="info-title">What You'll Get</h4>
+            <ul class="benefit-list">
+              <li>
+                <span class="check-icon">✓</span>
+                <span>Placement / Not Placed prediction</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span>Placement probability</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span>Not placed probability</span>
+              </li>
+              <li>
+                <span class="check-icon">✓</span>
+                <span>Result from the trained Logistic Regression model</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bottom Disclaimer Box -->
+          <div class="disclaimer-box">
+            <div class="disclaimer-icon">ℹ️</div>
+            <p class="disclaimer-text">
+              This prediction is based on historical student data and machine learning. It is intended for guidance and preparation, not as a guarantee of placement.
+            </p>
+          </div>
+        </div>
+
+        <!-- DYNAMIC SUCCESS STATE: Shown after Flask Backend Responds -->
+        <div id="successResultView" class="result-view-panel" style="display: none;">
+          <div class="result-header">
+            <span class="badge-source">Real ML Model Output</span>
+            <h2 class="card-title">Placement Prediction</h2>
+          </div>
+
+          <!-- Primary Outcome Badge -->
+          <div class="prediction-outcome-box" id="outcomeContainer">
+            <div class="outcome-icon" id="outcomeIcon"></div>
+            <div class="outcome-label-wrapper">
+              <span class="outcome-caption">Prediction Result</span>
+              <span class="outcome-status" id="predictionStatusText">PLACED</span>
+            </div>
+          </div>
+
+          <!-- Probabilities Visual Breakdown -->
+          <div class="probability-section">
+            <h4 class="metric-group-title">Probability Breakdown</h4>
+
+            <!-- Placed Probability Meter -->
+            <div class="prob-card prob-placed">
+              <div class="prob-header">
+                <span class="prob-title">Placed Probability</span>
+                <span class="prob-value" id="placedProbabilityValue">0%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill fill-placed" id="placedProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <!-- Not Placed Probability Meter -->
+            <div class="prob-card prob-not-placed">
+              <div class="prob-header">
+                <span class="prob-title">Not Placed Probability</span>
+                <span class="prob-value" id="notPlacedProbabilityValue">0%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill fill-not-placed" id="notPlacedProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model Provenance Meta -->
+          <div class="model-meta-box">
+            <div class="meta-item">
+              <span class="meta-label">Model Architecture</span>
+              <span class="meta-val">Logistic Regression (Scikit-Learn)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Server Endpoint</span>
+              <span class="meta-val code-font">POST /predict (Port 5000)</span>
+            </div>
+          </div>
+
+          <!-- Reset/Recalculate Button -->
+          <div class="result-actions">
+            <button type="button" id="resetResultBtn" class="btn-secondary-block">
+              ← Adjust Profile &amp; Recalculate
+            </button>
+          </div>
+
+          <!-- Bottom Disclaimer Box -->
+          <div class="disclaimer-box">
+            <div class="disclaimer-icon">ℹ️</div>
+            <p class="disclaimer-text">
+              This prediction is based on historical student data and machine learning. It is intended for guidance and preparation, not as a guarantee of placement.
+            </p>
+          </div>
+        </div>
+
+        <!-- ERROR STATE: Network Failure or Backend Error -->
+        <div id="errorResultView" class="result-view-panel" style="display: none;">
+          <div class="result-header">
+            <h2 class="card-title text-danger">Connection Error</h2>
+          </div>
+
+          <div class="error-state-card">
+            <div class="error-icon-box">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            
+            <h3 class="error-title" id="errorMessageText">
+              Unable to connect to the prediction server. Please start the Flask backend.
+            </h3>
+
+            <div class="troubleshoot-guide">
+              <p class="guide-title">How to start your Flask backend:</p>
+              <pre class="terminal-box"><code>python app.py</code></pre>
+              <p class="guide-note">
+                Ensure Flask is running at <span class="code-font">http://127.0.0.1:5000</span> and accepting POST requests to <span class="code-font">/predict</span> with CORS enabled.
+              </p>
+            </div>
+
+            <button type="button" id="dismissErrorBtn" class="btn-primary-block">
+              Dismiss &amp; Try Again
+            </button>
+          </div>
+
+          <!-- Bottom Disclaimer Box -->
+          <div class="disclaimer-box">
+            <div class="disclaimer-icon">ℹ️</div>
+            <p class="disclaimer-text">
+              This prediction is based on historical student data and machine learning. It is intended for guidance and preparation, not as a guarantee of placement.
+            </p>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ==================================================
+       FOOTER
+       ================================================== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p>&copy; 2026 College Placement Predictor &bull; Powered by Logistic Regression &bull; Academic ML Pipeline</p>
+    </div>
+  </footer>
+
+  <!-- ==================================================
+       ABOUT MODAL
+       ================================================== -->
+  <div id="aboutModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">About College Placement Predictor</h3>
+        <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The <strong>College Placement Predictor</strong> is an academic web application designed to connect directly with a trained Machine Learning model.
+        </p>
+        <h4>Model Specifications:</h4>
+        <ul>
+          <li><strong>Algorithm:</strong> Logistic Regression Classifier</li>
+          <li><strong>Input Dimensions:</strong> Exactly 22 features (academics, coding, projects, extracurriculars, soft skills)</li>
+          <li><strong>Artifacts:</strong> <code>placement_model.pkl</code> and <code>placement_scaler.pkl</code></li>
+          <li><strong>Backend:</strong> Flask API running at <code>http://127.0.0.1:5000/predict</code></li>
+        </ul>
+        <h4>Strict Decoupling:</h4>
+        <p>
+          This frontend does <em>not</em> perform any local ML inference or hard-coded estimations. All predictions are requested via asynchronous HTTP POST directly to your Flask server.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modalOkBtn" class="btn-primary-sm">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
